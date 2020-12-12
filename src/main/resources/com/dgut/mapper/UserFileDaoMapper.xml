@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgut.dao.UserFilesDao">
+
+  <select id="findByUserId" parameterType="Integer" resultType="UserFile">
+     select * from t_files where userId=#{id}
+  </select>
+
+    <insert id="save">
+        INSERT INTO t_files
+            VALUES (#{id},
+            #{oldFileName},#{newFileName},#{ext},
+            #{path},#{size},#{type},#{isImg},
+            #{downCounts},#{uploadTime},#{userId});
+    </insert>
+
+    <!-- 根据文件对应的id查询文件 -->
+    <select id="findById" resultType="UserFile">
+        select * from t_files where id = #{id}
+    </select>
+    <!-- 更新文件的下载次数 -->
+    <update id="update">
+        update t_files
+        set downCounts = #{downCounts}
+        where id = #{id}
+    </update>
+
+    <!--根据Id删除记录-->
+    <delete id="delete">
+        delete from t_files where id = #{id}
+    </delete>
+</mapper>
